@@ -1,21 +1,52 @@
-# demo
+> 目标: 前端开发移动端及H5时候，不需要再关心移动设备的大小，只需要按照固定
+  设计稿的px值布局
 
-> A Vue.js project
+# Vue-cli项目，rem解决方案
 
-## Build Setup
+最近做移动端，用Vue结合lib-flexible和px2rem-loader做移动端的网页适配
 
-``` bash
-# install dependencies
-npm install
+[最终项目代码分支master](https://github.com/kkxiaojun/vue-app/tree/master)
 
-# serve with hot reload at localhost:8080
-npm run dev
+## flexible
+* 动态改写meta标签
+* 给<html>元素添加data-dpr属性，并动态改写data-dpr的值
+* 给<html>元素添加font-size属性，并动态改写font-size的值
 
-# build for production with minification
-npm run build
+## px2rem
+将px转化为rem
 
-# build for production and view the bundle analyzer report
-npm run build --report
+## vue-cli添加flexible
+```javascript
+    npm install lib-flexible
+
+    // 在main.js中引入
+    import 'lib-flexible'
 ```
 
-For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## vue-cli添加px2rem-loader
+在`build/util.js`中
+```javascript
+  const px2remLoader = {
+    loader: 'px2rem-loader',
+    options: {
+      remUnit: 64 //设计稿宽度/10
+    }
+  }
+  // generate loader string to be used with extract text plugin
+  function generateLoaders (loader, loaderOptions) {
+    const loaders = options.usePostCSS ? [cssLoader, postcssLoader, px2remLoader] : [cssLoader, px2remLoader]
+
+    if (loader) {
+      loaders.push({
+        loader: loader + '-loader',
+        options: Object.assign({}, loaderOptions, {
+          sourceMap: options.sourceMap
+        })
+      })
+    }
+```
+
+# vue-cli,vw解决方案
+[如何在Vue项目中使用vw实现移动端适配](https://www.w3cplus.com/mobile/vw-layout-in-vue.html)
+
+[最终项目代码分支vue-vw](https://github.com/kkxiaojun/vue-app/tree/vue-vw)
