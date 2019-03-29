@@ -35,6 +35,7 @@ exports.cssLoaders = function (options) {
       remUnit: 64 //设计稿宽度/10
     }
   }
+
   // generate loader string to be used with extract text plugin
   function generateLoaders (loader, loaderOptions) {
     const loaders = options.usePostCSS ? [cssLoader, postcssLoader, px2remLoader] : [cssLoader, px2remLoader]
